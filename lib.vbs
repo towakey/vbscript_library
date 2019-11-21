@@ -132,3 +132,38 @@ function get_current_directory()
     On Error Goto 0
     get_current_directory=curdir
 end function
+
+function get_json(path)
+    ' ÉGÉâÅ[î≠ê∂ÇµÇƒÇ‡ë±ÇØÇƒèàóù
+    On Error Resume Next
+    dim objADO
+    set objADO=CreateObject("ADODB.Stream")
+    objADO.Charset="UTF-8"
+    objADO.Open
+    objADO.LoadFromFile(path)
+    objADO.Position=0
+
+    dim json_text
+    json_text=objADO.ReadText()
+    objADO.Close
+
+    dim objHF
+    set objHF=CreateObject("HtmlFile")
+    objHF.write "<meta http-equiv='X-UA-Compatible' content='IE=9' />"
+    objHF.write "<script>document.JsonParse=function (s) {return eval('(' + s + ')');}</script>"
+    objHF.write "<script>document.JsonStringify=JSON.stringify;</script>"
+
+    dim json
+    set json=objHF.JsonParse(json_text)
+
+    ' WScript.Echo json.date.year
+    ' WScript.Echo objHF.JsonStringify(json)
+
+    set objHF=Nothing
+    set objADO=Nothing
+    
+    On Error Goto 0
+
+    get_json=json
+    ' set json=Nothing
+end function

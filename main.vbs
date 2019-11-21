@@ -9,8 +9,9 @@ set objFSO_lib=Nothing
 ' ƒ‰ƒCƒuƒ‰ƒŠ‚ğ“Ç‚İ‚Ş‚¨‚Ü‚¶‚È‚¢
 
 dim arr
-arr=get_line_array("./test.txt")
+' arr=get_line_array("./test.txt")
 ' arr=get_file_array("C:\work\tools\vbs\")
 ' arr=get_folder_array("C:\work\tools\vbs\lib‰»\")
-WScript.Echo get_current_directory()
-
+' WScript.Echo get_current_directory()
+arr=get_json("./test.json")
+' arr.date.year
