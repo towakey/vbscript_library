@@ -133,7 +133,10 @@ function get_current_directory()
     get_current_directory=curdir
 end function
 
-function get_json(path)
+' 指定されたjsonファイルを読み込み、オブジェクトを返す
+' 引数：引数1(なし),引数2（String）
+' 返数：なし
+function get_json(json,path)
     ' エラー発生しても続けて処理
     On Error Resume Next
     dim objADO
@@ -153,17 +156,13 @@ function get_json(path)
     objHF.write "<script>document.JsonParse=function (s) {return eval('(' + s + ')');}</script>"
     objHF.write "<script>document.JsonStringify=JSON.stringify;</script>"
 
-    dim json
     set json=objHF.JsonParse(json_text)
-
-    ' WScript.Echo json.date.year
     ' WScript.Echo objHF.JsonStringify(json)
+    ' WScript.Echo json.date.year
 
     set objHF=Nothing
     set objADO=Nothing
     
     On Error Goto 0
 
-    get_json=json
-    ' set json=Nothing
 end function
